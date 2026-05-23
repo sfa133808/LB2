@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import httpx
 from fastapi import HTTPException
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 APP_NAME = os.getenv("APP_NAME", "StudyHub Gateway")
 APP_ENV = os.getenv("APP_ENV", "development")
@@ -11,8 +12,17 @@ APP_VERSION = os.getenv("APP_VERSION", "1.0.0")
 USERS_SERVICE_URL = os.getenv("USERS_SERVICE_URL", "http://users-service:8001")
 TASKS_SERVICE_URL = os.getenv("TASKS_SERVICE_URL", "http://tasks-service:8002")
 ANALYTICS_SERVICE_URL = os.getenv("ANALYTICS_SERVICE_URL", "http://analytics-service:8003")
+FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "http://localhost:3000")
 
 app = FastAPI(title=APP_NAME, version=APP_VERSION)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[FRONTEND_ORIGIN],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
