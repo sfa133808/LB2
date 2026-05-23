@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: lb2-render-app
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: false
+    healthCheckPath: /health
+    envVars:
+      - key: APP_NAME
+        value: LB2 Render Demo
+      - key: APP_ENV
+        value: production
+      - key: APP_VERSION
+        value: 1.0.0
+      - key: PORT
+        value: 10000
