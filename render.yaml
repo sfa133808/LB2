@@ -15,3 +15,18 @@ services:
         value: 1.0.0
       - key: PORT
         value: 10000
+
+  - type: web
+    name: lb2-frontend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./frontend/Dockerfile
+    autoDeploy: false
+    healthCheckPath: /
+    envVars:
+      - key: APP_NAME
+        value: LB2 Frontend
+      - key: APP_ENV
+        value: production
+      - key: PORT
+        value: 80
