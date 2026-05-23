@@ -5,6 +5,8 @@ import httpx
 from fastapi import HTTPException
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.requests import Request
+from fastapi.responses import Response
 
 APP_NAME = os.getenv("APP_NAME", "StudyHub Gateway")
 APP_ENV = os.getenv("APP_ENV", "development")
@@ -23,6 +25,19 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def security_headers_middleware(request: Request, call_next):
+    response: Response = await call_next(request)
+    # Basic security headers
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "no-referrer")
+    response.headers.setdefault("Permissions-Policy", "geolocation=(), microphone=()")
+    response.headers.setdefault("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload")
+    response.headers.setdefault("X-XSS-Protection", "1; mode=block")
+    return response
 
 
 @app.get("/")
