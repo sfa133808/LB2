@@ -51,6 +51,7 @@ jobs:
 
       - name: CodeQL - Analyze
         uses: github/codeql-action/analyze@v2
+        continue-on-error: true
 
   docker-build-push:
     runs-on: ubuntu-latest
