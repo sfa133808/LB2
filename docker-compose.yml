@@ -56,7 +56,7 @@ services:
     environment:
       API_BASE_URL: ${API_BASE_URL:-http://localhost:8080}
     ports:
-      - "${FRONTEND_HOST_PORT:-3000}:80"
+      - "${FRONTEND_HOST_PORT:-3000}:8080"
     depends_on:
       api-gateway:
         condition: service_healthy
