@@ -1,3 +1,9 @@
+databases:
+  - name: lb2-postgres
+    databaseName: lb2app
+    user: lb2user
+    plan: free
+
 services:
   - type: web
     name: lb2-render-app
@@ -15,6 +21,12 @@ services:
         value: 1.0.0
       - key: PORT
         value: 10000
+      - key: USERS_SERVICE_URL
+        value: https://lb2-users-service.onrender.com
+      - key: TASKS_SERVICE_URL
+        value: https://lb2-tasks-service.onrender.com
+      - key: ANALYTICS_SERVICE_URL
+        value: https://lb2-analytics-service.onrender.com
 
   - type: web
     name: lb2-frontend
@@ -30,3 +42,48 @@ services:
         value: production
       - key: PORT
         value: 8080
+
+  - type: web
+    name: lb2-users-service
+    runtime: docker
+    plan: free
+    dockerfilePath: ./services/users_service/Dockerfile
+    autoDeploy: false
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8001
+      - key: DATABASE_URL
+        fromDatabase:
+          name: lb2-postgres
+          property: connectionString
+
+  - type: web
+    name: lb2-tasks-service
+    runtime: docker
+    plan: free
+    dockerfilePath: ./services/tasks_service/Dockerfile
+    autoDeploy: false
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8002
+      - key: DATABASE_URL
+        fromDatabase:
+          name: lb2-postgres
+          property: connectionString
+
+  - type: web
+    name: lb2-analytics-service
+    runtime: docker
+    plan: free
+    dockerfilePath: ./services/analytics_service/Dockerfile
+    autoDeploy: false
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8003
+      - key: DATABASE_URL
+        fromDatabase:
+          name: lb2-postgres
+          property: connectionString
