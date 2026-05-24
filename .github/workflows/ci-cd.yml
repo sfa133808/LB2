@@ -113,12 +113,24 @@ jobs:
     needs: docker-build-push
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - name: Trigger Render Deploy Hook
+      - name: Trigger Render Deploy Hooks
         env:
-          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          RENDER_DEPLOY_HOOK_URL_API: ${{ secrets.RENDER_DEPLOY_HOOK_URL_API }}
+          RENDER_DEPLOY_HOOK_URL_FRONTEND: ${{ secrets.RENDER_DEPLOY_HOOK_URL_FRONTEND }}
         run: |
-          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
-            echo "RENDER_DEPLOY_HOOK_URL is not set"
+          set -e
+          any=false
+          if [ -n "$RENDER_DEPLOY_HOOK_URL_API" ]; then
+            echo "Triggering API deploy hook"
+            curl -fsS -X POST "$RENDER_DEPLOY_HOOK_URL_API" || echo "API hook request failed"
+            any=true
+          fi
+          if [ -n "$RENDER_DEPLOY_HOOK_URL_FRONTEND" ]; then
+            echo "Triggering Frontend deploy hook"
+            curl -fsS -X POST "$RENDER_DEPLOY_HOOK_URL_FRONTEND" || echo "Frontend hook request failed"
+            any=true
+          fi
+          if [ "$any" = "false" ]; then
+            echo "No deploy hook secrets set: RENDER_DEPLOY_HOOK_URL_API or RENDER_DEPLOY_HOOK_URL_FRONTEND"
             exit 1
           fi
-          curl -fsS -X POST "$RENDER_DEPLOY_HOOK_URL"
