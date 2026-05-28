@@ -68,3 +68,14 @@ def summary() -> dict[str, int]:
         "tasks_total": int(tasks_count),
         "open_tasks": int(open_tasks),
     }
+
+
+@app.get("/")
+def root() -> dict[str, str | int | dict]:
+    h = health()
+    h["endpoints"] = {
+        "health": "/health",
+        "analytics_summary": "/analytics/summary",
+        "docs": "/docs",
+    }
+    return h
