@@ -82,3 +82,15 @@ def create_task(payload: TaskCreate) -> dict[str, int | str]:
             "title": task.title,
             "status": task.status,
         }
+
+
+
+@app.get("/")
+def root() -> dict[str, str | int | dict]:
+    h = health()
+    h["endpoints"] = {
+        "health": "/health",
+        "tasks": "/tasks",
+        "docs": "/docs",
+    }
+    return h

@@ -78,3 +78,15 @@ def create_user(payload: UserCreate) -> dict[str, int | str]:
         session.refresh(user)
 
         return {"id": user.id, "name": user.name, "email": user.email}
+
+
+
+@app.get("/")
+def root() -> dict[str, str | int | dict]:
+    h = health()
+    h["endpoints"] = {
+        "health": "/health",
+        "users": "/users",
+        "docs": "/docs",
+    }
+    return h
