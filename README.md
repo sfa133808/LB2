@@ -222,7 +222,7 @@ Copilot hat mir Unmengen Zeit bei Code sparen geholfen. Aber ob Supabase oder Po
 
 1. **Multi-Stage Dockerfiles**
    
-   Ich dachte, das ist fancy und optional. In Wahrheit: Das macht die Image-Größe um 60% kleiner und der Build-Müll ist weg. Das mache ich jetzt immer.
+   Ich dachte, das ist fancy und optional. In Wahrheit: Das macht die Image-Grösse um 60% kleiner und der Build-Müll ist weg. Das mache ich jetzt immer.
 
 2. **Health-Checks retten dich**
    
@@ -243,7 +243,7 @@ Copilot hat mir Unmengen Zeit bei Code sparen geholfen. Aber ob Supabase oder Po
 - **C3**: Wie deploye ich das in die Cloud
 - **LB2**: Das alles zusammen und es muss funktionieren
 
-### Das größte Learning
+### Das grösste Learning
 
 Die Grenze zwischen "läuft lokal" und "läuft produktiv" ist riesig. Das war die Überraschung. LB2 ist nicht so kompliziert wie C1 oder C2. Aber das Betreiben (Logs lesen, fixen, neu deployen) ist kniffliger als Code schreiben.
 
