@@ -179,7 +179,24 @@ docker compose logs -f users-service
 
 Logs remote: Render Dashboard → Service → Logs
 
----
+## Architekturentscheidungen
+
+### Warum Microservices?
+Für diese Aufgabe wurde eine Microservice-Architektur gewählt. Dadurch sind Benutzerverwaltung, Aufgabenverwaltung und Analytics voneinander getrennt. Jeder Service kann unabhängig entwickelt, getestet und deployed werden.
+
+### Warum PostgreSQL?
+PostgreSQL wurde als relationale Datenbank eingesetzt. Ursprünglich wäre auch Supabase möglich gewesen. Da ich Supabase bereits für andere Projekte nutze und die kostenlose Version Einschränkungen bei den Ressourcen hat, entschied ich mich für eine separate PostgreSQL-Datenbank auf Render.
+
+### Warum Docker Compose?
+Docker Compose ermöglicht es, alle Services inklusive Datenbank mit einem einzigen Befehl lokal zu starten. Dadurch erhalten alle Teammitglieder dieselbe Entwicklungsumgebung.
+
+### Warum GitHub Actions?
+GitHub Actions automatisiert Build-, Test- und Deployment-Prozesse. Fehler werden früh erkannt und Deployments laufen reproduzierbar ab.
+
+### Warum Render?
+Render bietet eine einfache Möglichkeit, Container-Anwendungen kostenlos zu deployen und direkt mit GitHub zu verbinden. Dadurch eignet sich die Plattform gut für Lern- und Studienprojekte.
+
+
 
 ## Entscheidungen und Learnings
 
