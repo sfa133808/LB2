@@ -4,10 +4,9 @@ from datetime import datetime, timezone
 from fastapi import FastAPI
 from sqlalchemy import create_engine, text
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql+psycopg://lb2user:lb2pass@db:5432/lb2app",
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL environment variable is required")
 PORT = int(os.getenv("PORT", "8003"))
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)

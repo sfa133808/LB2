@@ -6,10 +6,9 @@ from pydantic import BaseModel
 from sqlalchemy import DateTime, Integer, String, create_engine, func, select
 from sqlalchemy.orm import Mapped, Session, declarative_base, mapped_column
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql+psycopg://lb2user:lb2pass@db:5432/lb2app",
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL environment variable is required")
 PORT = int(os.getenv("PORT", "8002"))
 
 Base = declarative_base()

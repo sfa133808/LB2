@@ -48,7 +48,7 @@ services:
       - key: PORT
         value: 8001
       - key: DATABASE_URL
-        value: postgresql+psycopg://lb2_postgres_user:x18ZfLCW212hZvOA71xmyHD4yMyF3jHm@dpg-d89im83bc2fs73f94j4g-a/lb2_postgres
+        sync: false
 
   - type: web
     name: lb2-tasks-service
@@ -61,7 +61,7 @@ services:
       - key: PORT
         value: 8002
       - key: DATABASE_URL
-        value: postgresql+psycopg://lb2_postgres_user:x18ZfLCW212hZvOA71xmyHD4yMyF3jHm@dpg-d89im83bc2fs73f94j4g-a/lb2_postgres
+        sync: false
 
   - type: web
     name: lb2-analytics-service
@@ -74,4 +74,4 @@ services:
       - key: PORT
         value: 8003
       - key: DATABASE_URL
-        value: postgresql+psycopg://lb2_postgres_user:x18ZfLCW212hZvOA71xmyHD4yMyF3jHm@dpg-d89im83bc2fs73f94j4g-a/lb2_postgres
+        sync: false
